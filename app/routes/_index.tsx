@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Button } from "~/components/atoms/Button";
+import { Link } from "@remix-run/react";
+
 
 
 
@@ -14,8 +15,7 @@ export default function Index() {
   return (
     <div>
       <h1>Welcome to comment app</h1>
-      {/* <FormRow type="email" label="Email adress" /> */}
-      <Button label="Button" />
+      <Link to="/comments">Comments</Link>
     </div>
   );
 }
