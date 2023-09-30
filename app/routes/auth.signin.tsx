@@ -4,7 +4,7 @@ import Input from '~/components/atoms/Input';
 import { Link, Form } from '@remix-run/react';
 import { Button } from '~/components/atoms/Button';
 import { createUserSession } from '~/utils/session';
-import { ActionFunctionArgs } from '@remix-run/node';
+import { ActionFunctionArgs, json } from '@remix-run/node';
 
 export let action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -17,7 +17,10 @@ export let action = async ({ request }: ActionFunctionArgs) => {
     return createUserSession({ user, token }, '/');
   } catch (err: any) {
     const errorMessage = err.response.data.message;
-    console.log(errorMessage);
+    throw json(
+      { message: errorMessage },
+      { statusText: err.response.data.code }
+    );
   }
 };
 

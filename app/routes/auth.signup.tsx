@@ -4,7 +4,7 @@ import Input from '~/components/atoms/Input';
 import { registerUser } from '~/services/auth';
 import { Button } from '~/components/atoms/Button';
 import { createUserSession } from '~/utils/session';
-import { ActionFunctionArgs } from '@remix-run/node';
+import { ActionFunctionArgs, json } from '@remix-run/node';
 
 export let action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -17,7 +17,10 @@ export let action = async ({ request }: ActionFunctionArgs) => {
     return createUserSession({ user, token }, '/');
   } catch (err: any) {
     const errorMessage = err.response.data.message;
-    console.log(errorMessage);
+    throw json(
+      { message: errorMessage },
+      { statusText: err.response.data.code }
+    );
   }
 };
 
@@ -68,3 +71,18 @@ export default function SignupPage() {
     </div>
   );
 }
+
+// export function ErrorBoundary({ error }: any) {
+//   return (
+//     <main>
+//       <h1>An error occured!</h1>
+//       <p>{error}</p>
+//       <p>
+//         Back to{' '}
+//         <Link to="/" className="text-blue-500 hover:underline">
+//           Home
+//         </Link>
+//       </p>
+//     </main>
+//   );
+// }
