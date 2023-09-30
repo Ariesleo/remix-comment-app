@@ -1,39 +1,37 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  json,
+  redirect,
+} from '@remix-run/node';
+import { addComment } from '~/services/comment';
 import CommentForm from '~/components/CommentForm';
-import { requireUserSession } from '~/utils/session';
-import { LoaderFunction, LoaderFunctionArgs } from '@remix-run/node';
+import { getUserFromSession, requireUserSession } from '~/utils/session';
 
-export let action: LoaderFunction = async ({ request }) => {
+export let action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const commentData = Object.fromEntries(formData);
 
-  const data = {
+  const session = await getUserFromSession(request);
+
+  const commentPayload = {
     content: commentData.comment,
-    userId: '2cccc02b-604d-4b67-8921-f671d8edb354',
+    userId: session.user.id,
     commenterName: commentData.name,
   };
+  const token = session.token;
 
-  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXN0NEBnbWFpbC5jb20iLCJpYXQiOjE2OTYwNTM1OTMsImV4cCI6MTY5NjEzOTk5M30.qlE_FWn6KpuHKAMNXTVoEhmCMGdip-ENPhXr-a1NGSo`;
-  // Handle posting comment to the backend
-  const response = await fetch('http://localhost:8080/api/v1/comments', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (response.ok) {
-    // For JSON data:
-    const responseData = await response.json();
-    console.log(responseData); // This will contain the parsed JSON data.
-  } else {
-    // Handle the case where the request was not successful (HTTP error).
-    console.error('Request failed with status:', response.status);
+  try {
+    await addComment(commentPayload, token);
+    return redirect('/');
+  } catch (err: any) {
+    const errorMessage = err.response.data.message;
+    throw json(
+      { message: errorMessage },
+      { statusText: err.response.data.code }
+    );
   }
-
-  return commentData;
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {

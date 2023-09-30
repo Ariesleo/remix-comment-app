@@ -6,8 +6,8 @@ import Textarea from './atoms/Textarea';
 const CommentForm = () => {
   return (
     <>
-      <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h2 className="text-4xl font-extrabold dark:text-white">
+      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <h2 className="text-xl my-4 font-bold text-gray-900 dark:text-white text-center">
           Add Comments
         </h2>
         <div>
@@ -24,7 +24,9 @@ const CommentForm = () => {
               placeholder="Enter your comment"
               rows={4}
             />
-            <Button type="submit" label="submit" />
+            <div className="flex flex-col">
+              <Button type="submit" label="Post comment" />
+            </div>
           </Form>
         </div>
       </div>

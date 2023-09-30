@@ -3,9 +3,28 @@
 @import 'tailwindcss/utilities';
 
 body {
+  background-color: whitesmoke;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.center-content {
   display: flex;
-  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 150px);
+
+  margin: 40px 0;
+
+  /* overflow-y: auto; */
+}
+
+.center-content::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar::-webkit-scrollbar {
+  display: none;
 }
