@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import CommentForm from '~/components/CommentForm';
-import { LoaderFunction } from '@remix-run/node';
+import { requireUserSession } from '~/utils/session';
+import { LoaderFunction, LoaderFunctionArgs } from '@remix-run/node';
 
 export let action: LoaderFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -12,7 +13,7 @@ export let action: LoaderFunction = async ({ request }) => {
     commenterName: commentData.name,
   };
 
-  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXN0NEBnbWFpbC5jb20iLCJpYXQiOjE2OTU5OTA3MTMsImV4cCI6MTY5NjA3NzExM30.FGjA9gUxKvzcNSHCS-idSprWT6jjniFuUJ9AyS_Qeh8`;
+  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXN0NEBnbWFpbC5jb20iLCJpYXQiOjE2OTYwNTM1OTMsImV4cCI6MTY5NjEzOTk5M30.qlE_FWn6KpuHKAMNXTVoEhmCMGdip-ENPhXr-a1NGSo`;
   // Handle posting comment to the backend
   const response = await fetch('http://localhost:8080/api/v1/comments', {
     method: 'POST',
@@ -34,6 +35,10 @@ export let action: LoaderFunction = async ({ request }) => {
 
   return commentData;
 };
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await requireUserSession(request);
+}
 
 const AddComments = () => {
   return (

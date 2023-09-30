@@ -1,6 +1,10 @@
-// ViewComments.tsx
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+import { LoaderFunctionArgs } from '@remix-run/node';
+import { requireUserSession } from '~/utils/session';
 
-import React from 'react';
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await requireUserSession(request);
+}
 
 function ViewComments() {
   return (
@@ -11,6 +15,5 @@ function ViewComments() {
     </div>
   );
 }
-
 
 export default ViewComments;
