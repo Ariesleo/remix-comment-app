@@ -11,7 +11,7 @@ const CommentForm = () => {
           Add Comments
         </h2>
         <div>
-          <Form action="/comments" method="post">
+          <Form action="/addcomments" method="post">
             <Input
               label="Name"
               type="text"
