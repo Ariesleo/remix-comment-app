@@ -14,6 +14,7 @@ import {
 
 import styles from '~/styles/app.css';
 import { Button } from './components/atoms/Button';
+import TopNav from './components/TopNav';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
@@ -30,7 +31,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <header>
+          <TopNav />
+        </header>
+        <main className="center-content">
+          <Outlet />
+        </main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
