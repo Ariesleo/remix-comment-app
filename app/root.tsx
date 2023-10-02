@@ -25,12 +25,13 @@ export const links: LinksFunction = () => [
 ];
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  // return await requireUserSession(request);
-  return await getUserFromSession(request);
+  const res = await getUserFromSession(request);
+  return res;
 }
 
 export default function App() {
   const data = useLoaderData<typeof loader>() as any;
+
   return (
     <html lang="en">
       <head>
