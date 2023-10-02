@@ -1,10 +1,24 @@
-# Welcome to Remix!
+# Welcome to Comment App!
 
-- [Remix Docs](https://remix.run/docs)
+This project helps to create a comment and view the all the comments.
 
 ## Development
+To run this project locally, you have to clone the comment API repository created seperately.
 
+
+# Pre-requisites
+* Install [Node.js](https://nodejs.org/en)
+* Install [postgresql](https://www.postgresql.org/download/)
+
+# Getting Started
+* Clone the comment api respository from [Comment-api](https://github.com/Ariesleo/commenting-api) and setup the environment variables for the database setup. Follow the .env.example file for more support.
+* You can clone the project either seperately or here within the same repository.
+  
 From your terminal:
+
+```sh
+change the directory to the server using the command: cd server
+```
 
 ```sh
 npm run dev
@@ -12,7 +26,20 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
-## Deployment
+
+# Once everythin is setup for the Comment-api, Now you run the remix-comment-app project.
+
+# Getting Started
+* Clone the comment api respository from [remix-comment-app](https://github.com/Ariesleo/remix-comment-app) and setup the environment variables. Take the help form .env.example file
+
+From your terminal:
+
+```sh
+npm run dev
+```
+
+
+## For Deployment
 
 First, build your app for production:
 
@@ -25,14 +52,3 @@ Then run the app in production mode:
 ```sh
 npm start
 ```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
