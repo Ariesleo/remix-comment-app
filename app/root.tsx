@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { cssBundleHref } from '@remix-run/css-bundle';
-import type { LinksFunction } from '@remix-run/node';
+import { LinksFunction, redirect } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -52,6 +53,9 @@ export function ErrorBoundary() {
   const error: any = useRouteError();
   const message = error?.data.message;
 
+  if (error.statusText === 'UNAUTHORIZED' || error.statusText === 'FORBIDDEN') {
+    redirect('/auth/signup');
+  }
   if (isRouteErrorResponse(error)) {
     return (
       <html lang="en">
@@ -63,7 +67,7 @@ export function ErrorBoundary() {
         </head>
         <body>
           <main>
-            <div className="w-full max-w-m p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div className="max-w-m p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
               <h1 className="text-2xl  font-extrabold dark:text-white">
                 {error.statusText}
               </h1>

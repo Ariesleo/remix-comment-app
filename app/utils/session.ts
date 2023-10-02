@@ -40,6 +40,7 @@ const getUserFromSession = async (request: any) => {
 
 const requireUserSession = async (request: any) => {
   const data = await getUserFromSession(request);
+
   if (!data) {
     throw redirect('/auth/signup');
   }

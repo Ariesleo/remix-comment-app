@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { useState } from 'react';
 import { Link } from '@remix-run/react';
 
