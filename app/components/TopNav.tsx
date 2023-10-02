@@ -62,7 +62,7 @@ export default function TopNav() {
                 <Link to="/addcomments">Add Comment</Link>
               </li>
               <li className="font-semibold text-gray-600 hover:text-blue-600">
-                <Link to="/viewcomments">View Comment</Link>
+                <Link to="/">View Comment</Link>
               </li>
             </ul>
           </div>
