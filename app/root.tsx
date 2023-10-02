@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import { cssBundleHref } from '@remix-run/css-bundle';
-import { LinksFunction, LoaderFunctionArgs, redirect } from '@remix-run/node';
+import { LinksFunction, LoaderFunctionArgs } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -61,9 +61,9 @@ export function ErrorBoundary() {
   const error: any = useRouteError();
   const message = error?.data.message;
 
-  if (error.statusText === 'UNAUTHORIZED' || error.statusText === 'FORBIDDEN') {
-    redirect('/auth/signup');
-  }
+  const isAuthError =
+    error.statusText === 'UNAUTHORIZED' || error.statusText === 'FORBIDDEN';
+
   if (isRouteErrorResponse(error)) {
     return (
       <html lang="en">
@@ -80,14 +80,23 @@ export function ErrorBoundary() {
                 {error.statusText}
               </h1>
               <p className="my-4">{message}</p>
-              <Button
-                label="Return"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                Return
-              </Button>
+              {isAuthError ? (
+                <Button
+                  label="login"
+                  onClick={() => {
+                    navigate('/auth/signin');
+                  }}
+                />
+              ) : (
+                <Button
+                  label="Return"
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                >
+                  Return
+                </Button>
+              )}
             </div>
           </main>
           <ScrollRestoration />
