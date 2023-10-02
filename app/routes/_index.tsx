@@ -55,7 +55,7 @@ const ViewComments = () => {
             <div className="max-w-2xl mx-auto px-4">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-                  Discussion ({totalComments})
+                  Comments ({totalComments})
                 </h2>
               </div>
               {data.map((element: any) => {
