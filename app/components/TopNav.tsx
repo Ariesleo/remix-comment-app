@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link } from '@remix-run/react';
 
-export default function TopNav() {
+export default function TopNav({ data }: any) {
   const [navbar, setNavbar] = useState(false);
 
   return (
@@ -57,14 +57,18 @@ export default function TopNav() {
               navbar ? 'block' : 'hidden'
             }`}
           >
-            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-              <li className="font-semibold text-gray-600 hover:text-blue-600">
-                <Link to="/addcomments">Add Comment</Link>
-              </li>
-              <li className="font-semibold text-gray-600 hover:text-blue-600">
-                <Link to="/">View Comment</Link>
-              </li>
-            </ul>
+            {!data ? (
+              <></>
+            ) : (
+              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                <li className="font-semibold text-gray-600 hover:text-blue-600">
+                  <Link to="/addcomments">Add Comment</Link>
+                </li>
+                <li className="font-semibold text-gray-600 hover:text-blue-600">
+                  <Link to="/">View Comment</Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </div>

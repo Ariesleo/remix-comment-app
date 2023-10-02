@@ -14,6 +14,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   try {
     const responseData = await fetchComments(token);
+    if (responseData?.data?.data.length <= 0) {
+      throw json(
+        { message: 'No data available' },
+        {
+          statusText: 'No data available to display',
+        }
+      );
+    }
     return responseData.data.data;
   } catch (err: any) {
     const errorMessage = err.response?.data?.message || 'An error occurred';

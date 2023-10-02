@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import { cssBundleHref } from '@remix-run/css-bundle';
-import { LinksFunction, redirect } from '@remix-run/node';
+import { LinksFunction, LoaderFunctionArgs, redirect } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -9,6 +9,7 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  useLoaderData,
   useNavigate,
   useRouteError,
 } from '@remix-run/react';
@@ -16,13 +17,20 @@ import {
 import styles from '~/styles/app.css';
 import { Button } from './components/atoms/Button';
 import TopNav from './components/TopNav';
+import { getUserFromSession } from './utils/session';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
   { rel: 'stylesheet', href: styles },
 ];
 
+export async function loader({ request }: LoaderFunctionArgs) {
+  // return await requireUserSession(request);
+  return await getUserFromSession(request);
+}
+
 export default function App() {
+  const data = useLoaderData<typeof loader>() as any;
   return (
     <html lang="en">
       <head>
@@ -33,7 +41,7 @@ export default function App() {
       </head>
       <body>
         <header>
-          <TopNav />
+          <TopNav data={data} />
         </header>
         <main className="center-content">
           <Outlet />
