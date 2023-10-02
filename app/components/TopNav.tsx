@@ -58,7 +58,14 @@ export default function TopNav({ data }: any) {
             }`}
           >
             {!data ? (
-              <></>
+              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                <li className="font-semibold text-gray-600 hover:text-blue-600">
+                  <Link to="/auth/signup">SignUp</Link>
+                </li>
+                <li className="font-semibold text-gray-600 hover:text-blue-600">
+                  <Link to="/auth/signin">SignIn</Link>
+                </li>
+              </ul>
             ) : (
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                 <li className="font-semibold text-gray-600 hover:text-blue-600">
