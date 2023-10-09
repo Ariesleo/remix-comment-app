@@ -18,7 +18,11 @@ To run this project locally, you have to clone the comment API repository create
 From your terminal:
 
 ```sh
-change the directory to the server using the command: cd server
+npm run install
+```
+
+```sh
+npm run build
 ```
 
 ```sh
